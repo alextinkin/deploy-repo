@@ -20,7 +20,7 @@ jobs:
         with:
           gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
           registry: gcr.io
-          project_id: mentor-internal-tool
+          project_id: mentor-pilot-project
           image_name: test-deploy
           image_tag: latest,waterloo,${{github.sha}}
 
@@ -40,6 +40,6 @@ jobs:
         with:
           gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
           registry: gcr.io
-          project_id: mentor-internal-tool
+          project_id: mentor-pilot-project
           image_name: test-deploy
           image_tag: latest,purdue,${{github.sha}}
