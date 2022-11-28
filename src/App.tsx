@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { apiGraphql, activeSite } from './config';
 
 function App() {
   return (
@@ -18,8 +19,8 @@ function App() {
         >
           Learn React
         </a>
-        <p>{process.env?.REACT_APP_API_GRAPHQL}</p>
-        <p>{process.env?.REACT_APP_ACTIVE_SITE}</p>
+        <p>{apiGraphql}</p>
+        <p>{activeSite}</p>
       </header>
     </div>
   );
