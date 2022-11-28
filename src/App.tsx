@@ -18,6 +18,8 @@ function App() {
         >
           Learn React
         </a>
+        <p>{process.env?.REACT_APP_API_GRAPHQL}</p>
+        <p>{process.env?.REACT_APP_ACTIVE_SITE}</p>
       </header>
     </div>
   );
