@@ -16,7 +16,7 @@ jobs:
           gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
           registry: gcr.io
           project_id: mentor-pilot-project
-          image_name: internal-tool-frontend
+          image_name: test-deploy
           image_tag: latest,waterloo,${{github.sha}}
 
   build-and-push-to-gcr-purdue:
@@ -31,5 +31,5 @@ jobs:
           gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
           registry: gcr.io
           project_id: mentor-pilot-project
-          image_name: internal-tool-frontend
+          image_name: test-deploy
           image_tag: latest,purdue,${{github.sha}}
