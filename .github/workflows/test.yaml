@@ -19,6 +19,11 @@ jobs:
           image_name: test-deploy
           image_tag: latest,waterloo,${{github.sha}}
 
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCLOUD_SERVICE_KEY }}'
+
   build-and-push-to-gcr-purdue:
     runs-on: ubuntu-latest
     steps:
@@ -33,3 +38,8 @@ jobs:
           project_id: mentor-internal-tool
           image_name: test-deploy
           image_tag: latest,purdue,${{github.sha}}
+          
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCLOUD_SERVICE_KEY }}'
