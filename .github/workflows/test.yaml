@@ -11,11 +11,6 @@ jobs:
       - name: 'Create env file'
         run: |
           echo "${{ secrets.ENV_WATERLOO }}" > .env
-      - name: Authenticate to Google Cloud
-        id: auth
-        uses: google-github-actions/auth@v0
-        with:
-          credentials_json: '${{ secrets.GCLOUD_SERVICE_KEY }}'
       - uses: RafikFarhad/push-to-gcr-github-action@v4.1
         with:
           gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
@@ -31,11 +26,6 @@ jobs:
       - name: 'Create env file'
         run: |
           echo "${{ secrets.ENV_PURDUE }}" > .env
-      - name: Authenticate to Google Cloud
-        id: auth
-        uses: google-github-actions/auth@v0
-        with:
-          credentials_json: '${{ secrets.GCLOUD_SERVICE_KEY }}'
       - uses: RafikFarhad/push-to-gcr-github-action@v4.1
         with:
           gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
