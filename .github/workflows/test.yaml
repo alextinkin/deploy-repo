@@ -3,6 +3,13 @@ name: Deploy GCP
 on:
   push:
     branches: [ main ]
+
+env:
+  PROJECT_ID: mentor-pilot-project
+  GKE_CLUSTER: gke-1mentor-cluster-1
+  GKE_ZONE: us-central1-c
+  IMAGE: test-deploy
+
 jobs:
   build-and-push-to-gcr-purdue:
     runs-on: ubuntu-latest
@@ -10,7 +17,7 @@ jobs:
       - uses: google-github-actions/setup-gcloud@v0.2.0
         with:
           service_account_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
-          project_id: mentor-pilot-project
+          project_id: ${{ env.PROJECT_ID }}
       - run: |-
           gcloud --quiet auth configure-docker
 
