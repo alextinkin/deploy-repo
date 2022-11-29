@@ -9,6 +9,7 @@ env:
   GKE_CLUSTER: gke-1mentor-cluster-1
   GKE_ZONE: us-central1-c
   IMAGE: test-deploy
+  ENV_PURDUE: ${{ secrets.ENV_PURDUE }}
 
 jobs:
   build-and-push-to-gcr-purdue:
@@ -26,8 +27,7 @@ jobs:
         run: |-
           docker build \
             --tag "gcr.io/$PROJECT_ID/$IMAGE/purdue:latest" \
-            --build-arg REACT_APP_ACTIVE_SITE=${{secrets.REACT_APP_ACTIVE_SITE}} \
-            --build-arg REACT_APP_API_GRAPHQL=${{secrets.REACT_APP_API_GRAPHQL}} \
+            $(cat $ENV_PURDUE | base64 --decode | while read line; do out+="--build-arg $line"; done; echo $out; out="")            .
             .
 
       - name: Publish
