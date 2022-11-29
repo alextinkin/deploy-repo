@@ -27,8 +27,7 @@ jobs:
         run: |-
           echo "$PURDUE_FILE" | base64 -d > .env
           cat .env
-          docker build --tag "gcr.io/$PROJECT_ID/$IMAGE/purdue:latest" \
-            $(cat .env | while read line; do out+="--build-arg $line "; done; echo $out; out="") .
+          $(cat .env | while read line; do out+="--build-arg $line "; done; echo $out; out="")
 
       - name: Publish
         run: |-
