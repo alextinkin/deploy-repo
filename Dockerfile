@@ -1,6 +1,7 @@
 FROM node:16.16.0 as build 
 ARG REACT_APP_API_GRAPHQL
 ARG REACT_APP_ACTIVE_SITE
+RUN echo $REACT_APP_API_GRAPHQL
 WORKDIR /app 
 COPY package*.json ./
 RUN npm install
