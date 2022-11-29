@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
 jobs:
-  build-and-push-to-gcr-waterloo:
+  build-and-push-to-gcr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,7 +19,7 @@ jobs:
           registry: gcr.io
           project_id: mentor-pilot-project
           image_name: test-deploy
-          image_tag: latest,waterloo,${{github.sha}}
+          image_tag: latest,${{github.sha}}
 
   # build-and-push-to-gcr-purdue:
   #   runs-on: ubuntu-latest
