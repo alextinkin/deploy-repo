@@ -20,6 +20,7 @@ jobs:
           project_id: mentor-pilot-project
           image_name: test-deploy
           image_tag: latest,${{github.sha}}
+          build_args: REACT_APP_API_GRAPHQL=http://localhost/waterloo/graphql,REACT_APP_ACTIVE_SITE=waterloo
 
   # build-and-push-to-gcr-purdue:
   #   runs-on: ubuntu-latest
