@@ -26,7 +26,7 @@ jobs:
       - name: Build
         run: |-
           docker build --tag "gcr.io/$PROJECT_ID/$IMAGE/purdue:latest" \
-            $($PURDUE_FILE | base64 --decode | while read line; do out+="--build-arg $line "; done; echo $out; out="") .
+            $(echo ($PURDUE_FILE) | base64 --decode | while read line; do out+="--build-arg $line "; done; echo $out; out="") .
 
       - name: Publish
         run: |-
