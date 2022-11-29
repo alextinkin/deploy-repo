@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build
         run: |-
-          echo ${{ secrets.ENV_PURDUE }} | base64 -d > .env
+          echo ${{ secrets.ENV_PURDUE }} > .env
           cat .env
           docker build --tag "gcr.io/$PROJECT_ID/$IMAGE/purdue:latest" \
             $(cat .env | base64 --decode | while read line; do out+="--build-arg $line "; done; echo $out; out="") .
