@@ -9,8 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: 'Create env file'
+        env:
+          ENV_WATERLOO: ${{ secrets.ENV_WATERLOO }}
         run: |
-          echo "${{ secrets.ENV_WATERLOO }}" > .env
+          echo $ENV_WATERLOO | base64 --decode > .env
       - uses: RafikFarhad/push-to-gcr-github-action@v4.1
         with:
           gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
@@ -24,8 +26,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: 'Create env file'
+        env:
+          ENV_PURDUE: ${{ secrets.ENV_PURDUE }}
         run: |
-          echo "${{ secrets.ENV_PURDUE }}" > .env
+          echo $ENV_PURDUE | base64 --decode > .env
       - uses: RafikFarhad/push-to-gcr-github-action@v4.1
         with:
           gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
