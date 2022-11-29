@@ -4,35 +4,24 @@ on:
   push:
     branches: [ main ]
 jobs:
-  build-and-push-to-gcr-waterloo:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: RafikFarhad/push-to-gcr-github-action@v4.1
-        with:
-          gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
-          registry: gcr.io
-          project_id: mentor-pilot-project
-          image_name: test-deploy
-          image_tag: latest,waterloo,${{github.sha}}
-          build_args: |
-            cat {{ secrets.ENV_WATERLOO }} | base64 --decode | while read line; do out+="$line,"; done; echo $out; out=""
-
   build-and-push-to-gcr-purdue:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: 'Create env file'
-        run: |
-          touch .env
-          echo REACT_APP_API_GRAPHQL=${{ secrets.REACT_APP_API_GRAPHQL }} >> .env
-          echo NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN }} >> .env
-      - uses: RafikFarhad/push-to-gcr-github-action@v4.1
+      - uses: google-github-actions/setup-gcloud@v0.2.0
         with:
-          gcloud_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
-          registry: gcr.io
+          service_account_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
           project_id: mentor-pilot-project
-          image_name: test-deploy
-          image_tag: latest,purdue,${{github.sha}}
-          build_args: |
-            cat {{ secrets.ENV_PURDUE }} | base64 --decode | while read line; do out+="$line,"; done; echo $out; out=""
+      - run: |-
+          gcloud --quiet auth configure-docker
+
+      - uses: actions/checkout@v3
+      - name: Build
+        run: |-
+          docker build \
+            --tag "gcr.io/$PROJECT_ID/$IMAGE/purdue:latest" \
+            --build-arg REACT_APP_ACTIVE_SITE=${{secrets.REACT_APP_ACTIVE_SITE}} \
+            --build-arg REACT_APP_API_GRAPHQL=${{secrets.REACT_APP_API_GRAPHQL}} \
+
+      - name: Publish
+        run: |-
+          docker push "gcr.io/$PROJECT_ID/$IMAGE/purdue:latest"
