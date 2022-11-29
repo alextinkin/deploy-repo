@@ -28,6 +28,7 @@ jobs:
             --tag "gcr.io/$PROJECT_ID/$IMAGE/purdue:latest" \
             --build-arg REACT_APP_ACTIVE_SITE=${{secrets.REACT_APP_ACTIVE_SITE}} \
             --build-arg REACT_APP_API_GRAPHQL=${{secrets.REACT_APP_API_GRAPHQL}} \
+            .
 
       - name: Publish
         run: |-
